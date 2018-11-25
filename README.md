@@ -9,3 +9,5 @@ In ETL pipeline notebook you can find Data loading, data cleaning and data savin
 At the end model is saved in a pickle file called "model1_pickle_file.pkl".
 For further use, saved results from this pickle file can be used.
 
+![Alt text](https://github.com/AkshatBhardwaj1/Disaster-Response-Pipelines/blob/master/IDE%20Workspace/Capture.PNG)
+
