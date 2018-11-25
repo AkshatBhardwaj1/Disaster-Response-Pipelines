@@ -16,3 +16,5 @@
 4. Go to https://view6914b2f4-3001.udacity-student-workspaces.com/
 
 The web app works and correctly classifies messages.
+
+![alt text](http://url/to/img.png)
