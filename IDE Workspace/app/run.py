@@ -27,13 +27,13 @@ def tokenize(text):
     return clean_tokens
 
 # load data
-engine = create_engine('sqlite:///../data/ETLPipelineDatabase.db')
-df = pd.read_sql_table('ETL_Table', engine)
+engine = create_engine('sqlite:///../data/DisasterResponse.db')
+df = pd.read_sql_table('ETLPipeline_Table', engine)
 
 # load model
-#model = joblib.load("../models/GridSearchModel.pkl")
-fileObject = open("../models/GridSearchModel.pkl",'rb')
-model = pickle.load(fileObject)
+#model = joblib.load("../models/GridSearchModel.pkl") #not using joblib. using pickle object instead to read.
+fileObject = open("../models/classifier.pkl",'rb')
+model = pickle.load(fileObject) 
 
 
 # index webpage displays cool visuals and receives user input text for model
@@ -45,6 +45,8 @@ def index():
     # TODO: Below is an example - modify to extract data for your own visuals
     genre_counts = df.groupby('genre').count()['message']
     genre_names = list(genre_counts.index)
+#    cat_names = df.hist(
+#    cat_counts = list(genre_counts.index)
     
     # create visuals
     # TODO: Below is an example - modify to create your own visuals
