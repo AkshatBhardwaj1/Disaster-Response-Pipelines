@@ -32,7 +32,7 @@ def clean_data(df,categories):
     #Convert category values to just numbers 0 or 1
     for column in categories:
         # set each value to be the last character of the string
-        categories[column] = categories[column].str.extract('(\d+)',expand = None).astype(int)
+        categories[column] = categories[column].str.extract('(\d+)',expand = False).astype(int)
     
     # drop the original categories column from `df`
     df.drop('categories',axis=1,inplace=True)
@@ -52,10 +52,12 @@ def clean_data(df,categories):
 
 
 def save_data(df, database_filename):
-    #database_filename = './ETLPipelineDatabase.db'
-    engine = create_engine('sqlite:///ETLPipelineDatabase.db')
-    df.to_sql('ETL_Table', engine,index=False)
-    print(database_filename , 'created')
+    #'sqlite:///ETLPipelineDatabase.db' #connection string expected
+    ##string concatenation
+    database_filename = 'sqlite:///' + database_filename
+    engine = create_engine(database_filename)
+    df.to_sql('ETLPipeline_Table', engine,if_exists='replace', index=False)
+    print(database_filename , 'created successfully')
 
         
 def main():
