@@ -13128,7 +13128,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
+<div class="prompt input_prompt">In&nbsp;[25]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># import libraries</span>
@@ -13151,16 +13151,16 @@ div#notebook {
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[nltk_data] Downloading package punkt to /root/nltk_data...
-[nltk_data]   Unzipping tokenizers/punkt.zip.
+[nltk_data]   Package punkt is already up-to-date!
 [nltk_data] Downloading package wordnet to /root/nltk_data...
-[nltk_data]   Unzipping corpora/wordnet.zip.
+[nltk_data]   Package wordnet is already up-to-date!
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[1]:</div>
+    <div class="prompt output_prompt">Out[25]:</div>
 
 
 
@@ -13177,7 +13177,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
+<div class="prompt input_prompt">In&nbsp;[26]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">re</span>
@@ -13190,7 +13190,6 @@ div#notebook {
 <span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;stopwords&#39;</span><span class="p">)</span>
 <span class="kn">from</span> <span class="nn">nltk.stem.porter</span> <span class="k">import</span> <span class="n">PorterStemmer</span>
 
-<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="k">import</span> <span class="n">Pipeline</span>
 <span class="kn">from</span> <span class="nn">sklearn.metrics</span> <span class="k">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">precision_score</span><span class="p">,</span><span class="n">recall_score</span><span class="p">,</span> <span class="n">classification_report</span>
 <span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">train_test_split</span>
 <span class="kn">from</span> <span class="nn">sklearn.ensemble</span> <span class="k">import</span> <span class="n">RandomForestClassifier</span>
@@ -13201,6 +13200,14 @@ div#notebook {
 <span class="kn">import</span> <span class="nn">sqlite3</span>
 <span class="kn">from</span> <span class="nn">sqlalchemy</span> <span class="k">import</span> <span class="n">create_engine</span>
 <span class="kn">from</span> <span class="nn">pathlib</span> <span class="k">import</span> <span class="n">Path</span>
+<span class="kn">import</span> <span class="nn">pickle</span>
+
+<span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="k">import</span> <span class="n">Pipeline</span><span class="p">,</span> <span class="n">FeatureUnion</span>
+<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
+<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">GridSearchCV</span>
+<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">RidgeClassifierCV</span>
+<span class="kn">import</span> <span class="nn">nltk</span>
+<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;averaged_perceptron_tagger&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -13218,9 +13225,26 @@ div#notebook {
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>[nltk_data] Downloading package stopwords to /root/nltk_data...
-[nltk_data]   Unzipping corpora/stopwords.zip.
+[nltk_data]   Package stopwords is already up-to-date!
+[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     /root/nltk_data...
+[nltk_data]   Package averaged_perceptron_tagger is already up-to-
+[nltk_data]       date!
 </pre>
 </div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt output_prompt">Out[26]:</div>
+
+
+
+
+<div class="output_text output_subarea output_execute_result">
+<pre>True</pre>
+</div>
+
 </div>
 
 </div>
@@ -13229,7 +13253,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
+<div class="prompt input_prompt">In&nbsp;[27]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">multiprocessing</span>
@@ -13261,7 +13285,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
+<div class="prompt input_prompt">In&nbsp;[28]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># load data from database</span>
@@ -13280,7 +13304,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[5]:</div>
+<div class="prompt input_prompt">In&nbsp;[29]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">X</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span><span class="n">X</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -13313,7 +13337,7 @@ div#notebook {
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[6]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">df</span><span class="p">[</span><span class="s1">&#39;genre&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">value_counts</span><span class="p">()</span><span class="c1">#Categorial values</span>
@@ -13329,7 +13353,7 @@ div#notebook {
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[6]:</div>
+    <div class="prompt output_prompt">Out[30]:</div>
 
 
 
@@ -13356,10 +13380,11 @@ Name: genre, dtype: int64</pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[7]:</div>
+<div class="prompt input_prompt">In&nbsp;[31]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># print(X[100])</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">##Trial code</span>
+<span class="c1"># print(X[100])</span>
 <span class="c1"># text = re.sub(r&quot;[^a-zA-Z0-9]&quot;, &quot; &quot;, X[100].lower())</span>
 <span class="c1"># print(text)</span>
 <span class="c1"># #text = text.split()</span>
@@ -13393,7 +13418,7 @@ tokenization, lemmatization, and stop word removal using nltk</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[8]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">tokenize</span><span class="p">(</span><span class="n">text</span><span class="p">):</span>
@@ -13426,7 +13451,7 @@ tokenization, lemmatization, and stop word removal using nltk</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[9]:</div>
+<div class="prompt input_prompt">In&nbsp;[33]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pipeline</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
@@ -13454,7 +13479,7 @@ tokenization, lemmatization, and stop word removal using nltk</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[10]:</div>
+<div class="prompt input_prompt">In&nbsp;[34]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">cross_validation</span>
@@ -13464,29 +13489,10 @@ tokenization, lemmatization, and stop word removal using nltk</code></pre>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/opt/conda/lib/python3.6/site-packages/sklearn/cross_validation.py:41: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
-  &#34;This module will be removed in 0.20.&#34;, DeprecationWarning)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">display_results</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
@@ -13511,7 +13517,7 @@ tokenization, lemmatization, and stop word removal using nltk</code></pre>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[12]:</div>
+<div class="prompt input_prompt">In&nbsp;[36]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Split data into train and test sets</span>
@@ -13553,7 +13559,7 @@ Named_steps: {&#39;vect&#39;: CountVectorizer(analyzer=&#39;word&#39;, binary=Fa
         lowercase=True, max_df=1.0, max_features=None, min_df=1,
         ngram_range=(1, 1), preprocessor=None, stop_words=None,
         strip_accents=None, token_pattern=&#39;(?u)\\b\\w\\w+\\b&#39;,
-        tokenizer=&lt;function tokenize at 0x7f3d13c60598&gt;, vocabulary=None), &#39;tfidf&#39;: TfidfTransformer(norm=&#39;l2&#39;, smooth_idf=True, sublinear_tf=False, use_idf=True), &#39;MOC&#39;: MultiOutputClassifier(estimator=RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&#39;gini&#39;,
+        tokenizer=&lt;function tokenize at 0x7f63e1aee158&gt;, vocabulary=None), &#39;tfidf&#39;: TfidfTransformer(norm=&#39;l2&#39;, smooth_idf=True, sublinear_tf=False, use_idf=True), &#39;MOC&#39;: MultiOutputClassifier(estimator=RandomForestClassifier(bootstrap=True, class_weight=None, criterion=&#39;gini&#39;,
             max_depth=None, max_features=&#39;auto&#39;, max_leaf_nodes=None,
             min_impurity_decrease=0.0, min_impurity_split=None,
             min_samples_leaf=1, min_samples_split=2,
@@ -13561,7 +13567,7 @@ Named_steps: {&#39;vect&#39;: CountVectorizer(analyzer=&#39;word&#39;, binary=Fa
             oob_score=False, random_state=None, verbose=0,
             warm_start=False),
            n_jobs=1)}
-Score: &lt;function Pipeline.score at 0x7f3d516b31e0&gt;
+Score: &lt;function Pipeline.score at 0x7f63e1aeec80&gt;
 Get Params: &lt;bound method Pipeline.get_params of Pipeline(memory=None,
      steps=[(&#39;vect&#39;, CountVectorizer(analyzer=&#39;word&#39;, binary=False, decode_error=&#39;strict&#39;,
         dtype=&lt;class &#39;numpy.int64&#39;&gt;, encoding=&#39;utf-8&#39;, input=&#39;content&#39;,
@@ -13570,7 +13576,7 @@ Get Params: &lt;bound method Pipeline.get_params of Pipeline(memory=None,
         strip...oob_score=False, random_state=None, verbose=0,
             warm_start=False),
            n_jobs=1))])&gt;
-Time taken: 247.01670122146606
+Time taken: 246.43297696113586
 ....................finished training
 </pre>
 </div>
@@ -13582,7 +13588,7 @@ Time taken: 247.01670122146606
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[13]:</div>
+<div class="prompt input_prompt">In&nbsp;[37]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># predict on test data</span>
@@ -13617,7 +13623,7 @@ Time taken: 247.01670122146606
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[15]:</div>
+<div class="prompt input_prompt">In&nbsp;[38]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Evaluating ...........&#39;</span><span class="p">)</span>
@@ -13645,11 +13651,11 @@ Time taken: 247.01670122146606
 <pre>Evaluating ...........
 Labels: [0 1]
 Confusion Matrix:
- [[4183  118]
- [ 819   89]]
-Accuracy: 0.820119024765
-Precision score: 0.429951690821
-Recall score: 0.0980176211454
+ [[4202  127]
+ [ 812   68]]
+Accuracy: 0.819735073911
+Precision score: 0.348717948718
+Recall score: 0.0772727272727
 </pre>
 </div>
 </div>
@@ -13668,7 +13674,7 @@ Recall score: 0.0980176211454
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">y_test</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
@@ -13699,7 +13705,7 @@ Recall score: 0.0980176211454
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[18]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="mi">100</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[</span><span class="mi">100</span><span class="p">]))</span>
@@ -13721,23 +13727,11 @@ Recall score: 0.0980176211454
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>             precision    recall  f1-score   support
 
-          0       0.72      1.00      0.84        26
-          1       0.00      0.00      0.00        10
+          0       1.00      1.00      1.00        35
+          1       1.00      1.00      1.00         1
 
-avg / total       0.52      0.72      0.61        36
+avg / total       1.00      1.00      1.00        36
 
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stderr output_text">
-<pre>/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
-  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
 </pre>
 </div>
 </div>
@@ -13748,10 +13742,12 @@ avg / total       0.52      0.72      0.61        36
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
+<div class="prompt input_prompt">In&nbsp;[41]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># columns = df.iloc[:,4:].columns</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">### Trial code..........</span>
+
+<span class="c1"># columns = df.iloc[:,4:].columns</span>
 <span class="c1"># i = 0</span>
 <span class="c1"># report = []</span>
 <span class="c1"># for col in columns:</span>
@@ -13773,7 +13769,7 @@ avg / total       0.52      0.72      0.61        36
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[20]:</div>
+<div class="prompt input_prompt">In&nbsp;[42]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">display_classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred</span><span class="p">,</span><span class="n">df</span><span class="p">):</span>
@@ -13793,7 +13789,7 @@ avg / total       0.52      0.72      0.61        36
     <span class="n">i</span> <span class="o">=</span> <span class="mi">0</span>
     <span class="n">report</span> <span class="o">=</span> <span class="p">[]</span>
     <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">columns</span><span class="p">:</span>
-        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">[</span><span class="n">i</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[</span><span class="n">i</span><span class="p">],</span><span class="n">target_names</span> <span class="o">=</span><span class="p">[</span><span class="n">col</span><span class="p">]))</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span> <span class="n">y_pred</span><span class="p">[:,</span><span class="n">i</span><span class="p">],</span><span class="n">target_names</span> <span class="o">=</span><span class="p">[</span><span class="n">col</span><span class="p">]))</span>
         <span class="n">i</span><span class="o">+=</span><span class="mi">1</span>
 
 
@@ -13824,219 +13820,219 @@ avg / total       0.52      0.72      0.61        36
 Printing precision score, recall score &amp; f1-score for target columns...............
              precision    recall  f1-score   support
 
-    related       0.84      0.96      0.90        28
+    related       0.32      0.14      0.19      1212
 
-avg / total       0.82      0.83      0.81        36
-
-             precision    recall  f1-score   support
-
-    request       0.88      1.00      0.93        28
-
-avg / total       0.90      0.89      0.87        36
+avg / total       0.66      0.72      0.68      5209
 
              precision    recall  f1-score   support
 
-      offer       0.91      1.00      0.96        32
+    request       0.84      0.97      0.90      4329
 
-avg / total       0.92      0.92      0.89        36
+avg / total       0.76      0.82      0.77      5209
 
              precision    recall  f1-score   support
 
-aid_related       0.86      1.00      0.93        31
+      offer       1.00      1.00      1.00      5183
 
-avg / total       0.74      0.86      0.80        36
+avg / total       0.99      1.00      0.99      5209
+
+             precision    recall  f1-score   support
+
+aid_related       0.59      0.79      0.67      3061
+
+avg / total       0.52      0.55      0.52      5209
 
               precision    recall  f1-score   support
 
-medical_help       1.00      0.97      0.99        36
+medical_help       0.92      0.99      0.96      4794
 
- avg / total       1.00      0.97      0.99        36
+ avg / total       0.85      0.91      0.88      5209
 
                   precision    recall  f1-score   support
 
-medical_products       0.88      1.00      0.94        29
+medical_products       0.95      1.00      0.97      4953
 
-     avg / total       0.90      0.89      0.87        36
+     avg / total       0.91      0.95      0.93      5209
 
                    precision    recall  f1-score   support
 
-search_and_rescue       0.94      1.00      0.97        33
+search_and_rescue       0.97      1.00      0.98      5064
 
-      avg / total       0.95      0.94      0.93        36
-
-             precision    recall  f1-score   support
-
-   security       0.94      0.97      0.96        33
-
-avg / total       0.90      0.92      0.91        36
+      avg / total       0.95      0.97      0.96      5209
 
              precision    recall  f1-score   support
 
-   military       0.80      1.00      0.89        28
+   security       0.98      1.00      0.99      5115
 
-avg / total       0.84      0.81      0.74        36
-
-             precision    recall  f1-score   support
-
-child_alone       1.00      0.97      0.99        35
-
-avg / total       0.99      0.97      0.98        36
+avg / total       0.96      0.98      0.97      5209
 
              precision    recall  f1-score   support
 
-      water       1.00      0.97      0.99        36
+   military       0.97      1.00      0.98      5031
 
-avg / total       1.00      0.97      0.99        36
-
-             precision    recall  f1-score   support
-
-       food       1.00      1.00      1.00        35
-
-avg / total       1.00      1.00      1.00        36
+avg / total       0.93      0.97      0.95      5209
 
              precision    recall  f1-score   support
 
-    shelter       0.80      1.00      0.89        28
+child_alone       1.00      1.00      1.00      5209
 
-avg / total       0.84      0.81      0.74        36
-
-             precision    recall  f1-score   support
-
-   clothing       0.89      1.00      0.94        32
-
-avg / total       0.79      0.89      0.84        36
+avg / total       1.00      1.00      1.00      5209
 
              precision    recall  f1-score   support
 
-      money       0.91      1.00      0.95        30
+      water       0.94      0.99      0.97      4911
 
-avg / total       0.92      0.92      0.90        36
+avg / total       0.90      0.94      0.91      5209
+
+             precision    recall  f1-score   support
+
+       food       0.89      0.99      0.94      4640
+
+avg / total       0.81      0.88      0.84      5209
+
+             precision    recall  f1-score   support
+
+    shelter       0.92      0.99      0.95      4775
+
+avg / total       0.85      0.91      0.87      5209
+
+             precision    recall  f1-score   support
+
+   clothing       0.99      1.00      0.99      5144
+
+avg / total       0.98      0.99      0.98      5209
+
+             precision    recall  f1-score   support
+
+      money       0.97      1.00      0.99      5059
+
+avg / total       0.94      0.97      0.96      5209
 
                 precision    recall  f1-score   support
 
-missing_people       1.00      0.97      0.99        36
+missing_people       0.99      1.00      0.99      5147
 
-   avg / total       1.00      0.97      0.99        36
-
-             precision    recall  f1-score   support
-
-   refugees       0.86      1.00      0.92        30
-
-avg / total       0.88      0.86      0.82        36
+   avg / total       0.98      0.99      0.98      5209
 
              precision    recall  f1-score   support
 
-      death       0.89      1.00      0.94        31
+   refugees       0.97      1.00      0.98      5045
 
-avg / total       0.90      0.89      0.86        36
+avg / total       0.94      0.97      0.95      5209
 
              precision    recall  f1-score   support
 
-  other_aid       1.00      0.97      0.99        36
+      death       0.95      1.00      0.97      4959
 
-avg / total       1.00      0.97      0.99        36
+avg / total       0.91      0.95      0.93      5209
+
+             precision    recall  f1-score   support
+
+  other_aid       0.87      0.98      0.92      4527
+
+avg / total       0.77      0.85      0.81      5209
 
                         precision    recall  f1-score   support
 
-infrastructure_related       1.00      1.00      1.00        35
+infrastructure_related       0.93      1.00      0.96      4862
 
-           avg / total       0.97      0.97      0.97        36
-
-             precision    recall  f1-score   support
-
-  transport       1.00      0.97      0.99        36
-
-avg / total       1.00      0.97      0.99        36
+           avg / total       0.87      0.93      0.90      5209
 
              precision    recall  f1-score   support
 
-  buildings       0.94      0.94      0.94        32
+  transport       0.95      1.00      0.97      4962
 
-avg / total       0.89      0.89      0.89        36
-
-             precision    recall  f1-score   support
-
-electricity       0.76      1.00      0.87        26
-
-avg / total       0.83      0.78      0.72        36
+avg / total       0.91      0.95      0.93      5209
 
              precision    recall  f1-score   support
 
-      tools       0.88      1.00      0.94        29
+  buildings       0.95      0.99      0.97      4936
 
-avg / total       0.90      0.89      0.87        36
-
-             precision    recall  f1-score   support
-
-  hospitals       0.94      1.00      0.97        33
-
-avg / total       0.95      0.94      0.93        36
+avg / total       0.91      0.94      0.92      5209
 
              precision    recall  f1-score   support
 
-      shops       0.72      1.00      0.84        26
+electricity       0.98      1.00      0.99      5111
 
-avg / total       0.52      0.72      0.61        36
+avg / total       0.96      0.98      0.97      5209
 
              precision    recall  f1-score   support
 
-aid_centers       1.00      1.00      1.00        35
+      tools       0.99      1.00      1.00      5176
 
-avg / total       1.00      1.00      1.00        36
+avg / total       0.99      0.99      0.99      5209
+
+             precision    recall  f1-score   support
+
+  hospitals       0.99      1.00      0.99      5151
+
+avg / total       0.98      0.99      0.98      5209
+
+             precision    recall  f1-score   support
+
+      shops       0.99      1.00      1.00      5182
+
+avg / total       0.99      0.99      0.99      5209
+
+             precision    recall  f1-score   support
+
+aid_centers       0.99      1.00      0.99      5148
+
+avg / total       0.98      0.99      0.98      5209
 
                       precision    recall  f1-score   support
 
-other_infrastructure       0.82      1.00      0.90        27
+other_infrastructure       0.95      1.00      0.98      4975
 
-         avg / total       0.86      0.83      0.80        36
+         avg / total       0.91      0.95      0.93      5209
 
                  precision    recall  f1-score   support
 
-weather_related       1.00      0.97      0.99        36
+weather_related       0.74      0.93      0.82      3740
 
-    avg / total       1.00      0.97      0.99        36
-
-             precision    recall  f1-score   support
-
-     floods       0.85      1.00      0.92        29
-
-avg / total       0.88      0.86      0.83        36
+    avg / total       0.67      0.72      0.66      5209
 
              precision    recall  f1-score   support
 
-      storm       1.00      1.00      1.00        35
+     floods       0.91      0.99      0.95      4759
 
-avg / total       1.00      1.00      1.00        36
-
-             precision    recall  f1-score   support
-
-       fire       1.00      0.97      0.99        36
-
-avg / total       1.00      0.97      0.99        36
+avg / total       0.85      0.91      0.87      5209
 
              precision    recall  f1-score   support
 
- earthquake       0.86      1.00      0.92        30
+      storm       0.90      0.99      0.95      4688
 
-avg / total       0.88      0.86      0.82        36
+avg / total       0.86      0.90      0.86      5209
 
              precision    recall  f1-score   support
 
-       cold       0.86      1.00      0.93        31
+       fire       0.99      1.00      1.00      5166
 
-avg / total       0.74      0.86      0.80        36
+avg / total       0.98      0.99      0.99      5209
+
+             precision    recall  f1-score   support
+
+ earthquake       0.92      0.99      0.95      4735
+
+avg / total       0.89      0.91      0.89      5209
+
+             precision    recall  f1-score   support
+
+       cold       0.98      1.00      0.99      5109
+
+avg / total       0.96      0.98      0.97      5209
 
                precision    recall  f1-score   support
 
-other_weather       1.00      0.86      0.93        36
+other_weather       0.94      1.00      0.97      4914
 
-  avg / total       1.00      0.86      0.93        36
+  avg / total       0.89      0.94      0.91      5209
 
                precision    recall  f1-score   support
 
-direct_report       0.91      1.00      0.95        31
+direct_report       0.81      0.96      0.88      4213
 
-  avg / total       0.92      0.92      0.90        36
+  avg / total       0.72      0.79      0.74      5209
 
 ..............................................Finished printing precision recall &amp; f1-score for target columns.
 </pre>
@@ -14049,32 +14045,16 @@ direct_report       0.91      1.00      0.95        31
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1428: UserWarning: labels size, 2, does not match size of target_names, 1
+<pre>/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1428: UserWarning: labels size, 3, does not match size of target_names, 1
+  .format(len(labels), len(target_names))
+/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1428: UserWarning: labels size, 2, does not match size of target_names, 1
   .format(len(labels), len(target_names))
 /opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
   &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
-/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1137: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples.
-  &#39;recall&#39;, &#39;true&#39;, average, warn_for)
-/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1428: UserWarning: labels size, 3, does not match size of target_names, 1
-  .format(len(labels), len(target_names))
 </pre>
 </div>
 </div>
 
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[21]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># for i in range(y_pred.shape[1]):</span>
-<span class="c1">#     print(classification_report(y_test[i], y_pred[i],target_names =df.iloc[:,4:]))</span>
-</pre></div>
-
-    </div>
 </div>
 </div>
 
@@ -14089,58 +14069,7 @@ direct_report       0.91      1.00      0.95        31
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[22]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn.pipeline</span> <span class="k">import</span> <span class="n">Pipeline</span><span class="p">,</span> <span class="n">FeatureUnion</span>
-<span class="kn">from</span> <span class="nn">sklearn.base</span> <span class="k">import</span> <span class="n">BaseEstimator</span><span class="p">,</span> <span class="n">TransformerMixin</span>
-<span class="kn">from</span> <span class="nn">sklearn.model_selection</span> <span class="k">import</span> <span class="n">GridSearchCV</span>
-<span class="kn">from</span> <span class="nn">sklearn.linear_model</span> <span class="k">import</span> <span class="n">RidgeClassifierCV</span>
-<span class="kn">import</span> <span class="nn">nltk</span>
-<span class="n">nltk</span><span class="o">.</span><span class="n">download</span><span class="p">(</span><span class="s1">&#39;averaged_perceptron_tagger&#39;</span><span class="p">)</span>
-</pre></div>
-
-    </div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-
-    <div class="prompt"></div>
-
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[nltk_data] Downloading package averaged_perceptron_tagger to
-[nltk_data]     /root/nltk_data...
-[nltk_data]   Unzipping taggers/averaged_perceptron_tagger.zip.
-</pre>
-</div>
-</div>
-
-<div class="output_area">
-
-    <div class="prompt output_prompt">Out[22]:</div>
-
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>True</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[23]:</div>
+<div class="prompt input_prompt">In&nbsp;[30]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">build_model</span><span class="p">():</span>
@@ -14151,14 +14080,14 @@ direct_report       0.91      1.00      0.95        31
     <span class="p">])</span>
     <span class="n">parameters</span> <span class="o">=</span> <span class="p">{</span>
         <span class="s1">&#39;vect__ngram_range&#39;</span><span class="p">:</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
-        <span class="s1">&#39;vect__max_df&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mf">1.0</span><span class="p">],</span>
-        <span class="s1">&#39;vect__min_df&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">1</span><span class="p">],</span>
-        <span class="s1">&#39;tfidf__norm&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;l2&#39;</span><span class="p">],</span>
-        <span class="s1">&#39;tfidf__use_idf&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="s1">&#39;True&#39;</span><span class="p">],</span>
-        <span class="s1">&#39;clf__estimator__min_samples_split&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span>
-        <span class="s1">&#39;clf__estimator__n_estimators&#39;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">],</span>
-        <span class="s1">&#39;clf__estimator__max_features&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;auto&#39;</span><span class="p">],</span>
-        <span class="s1">&#39;clf__estimator__criterion&#39;</span><span class="p">:</span> <span class="p">[</span><span class="s1">&#39;gini&#39;</span><span class="p">],</span>
+        <span class="c1">#&#39;vect__max_df&#39;: [1.0],</span>
+        <span class="c1">#&#39;vect__min_df&#39; : [1],</span>
+        <span class="c1">#&#39;tfidf__norm&#39; : [&#39;l2&#39;],</span>
+        <span class="c1">#&#39;tfidf__use_idf&#39; : [&#39;True&#39;],</span>
+        <span class="c1">#&#39;clf__estimator__min_samples_split&#39;: [2],</span>
+        <span class="c1">#&#39;clf__estimator__n_estimators&#39;: [100],</span>
+        <span class="c1">#&#39;clf__estimator__max_features&#39;: [&#39;auto&#39;],</span>
+        <span class="c1">#&#39;clf__estimator__criterion&#39;: [&#39;gini&#39;],</span>
         <span class="c1">#&#39;clf__estimator__class_weight&#39; : [{0: 1, 1: 1}]</span>
     <span class="p">}</span>
     
@@ -14175,7 +14104,7 @@ direct_report       0.91      1.00      0.95        31
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[24]:</div>
+<div class="prompt input_prompt">In&nbsp;[32]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Train using GridSearch</span>
@@ -14183,7 +14112,7 @@ direct_report       0.91      1.00      0.95        31
 <span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
 
 <span class="n">model1</span> <span class="o">=</span> <span class="n">build_model</span><span class="p">()</span>
-<span class="c1">#model1.fit(X_train,y_train)</span>
+<span class="n">model1</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
 
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time taken: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start</span><span class="p">))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;...........................................finished training&#39;</span><span class="p">)</span>
@@ -14204,7 +14133,29 @@ direct_report       0.91      1.00      0.95        31
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>Training using Grid Search.........
-Time taken: 0.0017247200012207031
+Fitting 3 folds for each of 2 candidates, totalling 6 fits
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>[Parallel(n_jobs=-1)]: Done   6 out of   6 | elapsed: 36.6min finished
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Time taken: 2484.850732088089
 ...........................................finished training
 </pre>
 </div>
@@ -14216,11 +14167,16 @@ Time taken: 0.0017247200012207031
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[25]:</div>
+<div class="prompt input_prompt">In&nbsp;[35]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;predicting.........&#39;</span><span class="p">)</span>
-<span class="c1">#y_pred1 = model.predict(X_test)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="s1">&#39;predicting using Grid Search.........&#39;</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+<span class="c1"># Predict</span>
+<span class="n">y_pred1</span> <span class="o">=</span> <span class="n">model1</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time taken: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;...........................................finished predicting&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14238,6 +14194,9 @@ Time taken: 0.0017247200012207031
 
 <div class="output_subarea output_stream output_stdout output_text">
 <pre>predicting.........
+Training using Grid Search.........
+Time taken: 32.67859649658203
+...........................................finished training
 </pre>
 </div>
 </div>
@@ -14257,10 +14216,10 @@ Time taken: 0.0017247200012207031
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[31]:</div>
+<div class="prompt input_prompt">In&nbsp;[40]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#display_classification_report(y_test,y_pred1,df)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">display_classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred1</span><span class="p">,</span><span class="n">df</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14276,14 +14235,242 @@ Time taken: 0.0017247200012207031
     <div class="prompt"></div>
 
 
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-fg">---------------------------------------------------------------------------</span>
-<span class="ansi-red-fg">NameError</span>                                 Traceback (most recent call last)
-<span class="ansi-green-fg">&lt;ipython-input-31-379b486c6781&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-fg">()</span>
-<span class="ansi-green-fg">----&gt; 1</span><span class="ansi-red-fg"> </span>display_classification_report<span class="ansi-blue-fg">(</span>y_test<span class="ansi-blue-fg">,</span>y_pred1<span class="ansi-blue-fg">,</span>df<span class="ansi-blue-fg">)</span>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Printing precision score, recall score &amp; f1-score for target columns...............
+             precision    recall  f1-score   support
 
-<span class="ansi-red-fg">NameError</span>: name &#39;y_pred1&#39; is not defined</pre>
+    related       0.33      0.16      0.22      1219
+
+avg / total       0.67      0.72      0.68      5209
+
+             precision    recall  f1-score   support
+
+    request       0.83      0.98      0.90      4306
+
+avg / total       0.76      0.82      0.77      5209
+
+             precision    recall  f1-score   support
+
+      offer       1.00      1.00      1.00      5188
+
+avg / total       0.99      1.00      0.99      5209
+
+             precision    recall  f1-score   support
+
+aid_related       0.59      0.78      0.67      3049
+
+avg / total       0.52      0.55      0.51      5209
+
+              precision    recall  f1-score   support
+
+medical_help       0.92      1.00      0.96      4810
+
+ avg / total       0.86      0.92      0.89      5209
+
+                  precision    recall  f1-score   support
+
+medical_products       0.95      1.00      0.97      4966
+
+     avg / total       0.91      0.95      0.93      5209
+
+                   precision    recall  f1-score   support
+
+search_and_rescue       0.97      1.00      0.98      5067
+
+      avg / total       0.95      0.97      0.96      5209
+
+             precision    recall  f1-score   support
+
+   security       0.98      1.00      0.99      5118
+
+avg / total       0.97      0.98      0.97      5209
+
+             precision    recall  f1-score   support
+
+   military       0.97      1.00      0.98      5050
+
+avg / total       0.95      0.97      0.95      5209
+
+             precision    recall  f1-score   support
+
+child_alone       1.00      1.00      1.00      5209
+
+avg / total       1.00      1.00      1.00      5209
+
+             precision    recall  f1-score   support
+
+      water       0.93      1.00      0.96      4860
+
+avg / total       0.89      0.93      0.90      5209
+
+             precision    recall  f1-score   support
+
+       food       0.89      0.99      0.94      4615
+
+avg / total       0.81      0.88      0.83      5209
+
+             precision    recall  f1-score   support
+
+    shelter       0.92      0.99      0.95      4779
+
+avg / total       0.85      0.91      0.88      5209
+
+             precision    recall  f1-score   support
+
+   clothing       0.98      1.00      0.99      5124
+
+avg / total       0.97      0.98      0.98      5209
+
+             precision    recall  f1-score   support
+
+      money       0.98      1.00      0.99      5089
+
+avg / total       0.95      0.98      0.97      5209
+
+                precision    recall  f1-score   support
+
+missing_people       0.99      1.00      0.99      5136
+
+   avg / total       0.97      0.99      0.98      5209
+
+             precision    recall  f1-score   support
+
+   refugees       0.97      1.00      0.98      5047
+
+avg / total       0.94      0.97      0.95      5209
+
+             precision    recall  f1-score   support
+
+      death       0.95      1.00      0.97      4949
+
+avg / total       0.91      0.95      0.92      5209
+
+             precision    recall  f1-score   support
+
+  other_aid       0.87      0.98      0.92      4518
+
+avg / total       0.77      0.86      0.80      5209
+
+                        precision    recall  f1-score   support
+
+infrastructure_related       0.94      0.99      0.96      4876
+
+           avg / total       0.88      0.93      0.90      5209
+
+             precision    recall  f1-score   support
+
+  transport       0.96      1.00      0.98      4981
+
+avg / total       0.92      0.95      0.93      5209
+
+             precision    recall  f1-score   support
+
+  buildings       0.95      0.99      0.97      4972
+
+avg / total       0.92      0.95      0.93      5209
+
+             precision    recall  f1-score   support
+
+electricity       0.98      1.00      0.99      5101
+
+avg / total       0.96      0.98      0.97      5209
+
+             precision    recall  f1-score   support
+
+      tools       0.99      1.00      1.00      5177
+
+avg / total       0.99      0.99      0.99      5209
+
+             precision    recall  f1-score   support
+
+  hospitals       0.99      1.00      1.00      5159
+
+avg / total       0.98      0.99      0.99      5209
+
+             precision    recall  f1-score   support
+
+      shops       1.00      1.00      1.00      5185
+
+avg / total       0.99      1.00      0.99      5209
+
+             precision    recall  f1-score   support
+
+aid_centers       0.99      1.00      0.99      5146
+
+avg / total       0.98      0.99      0.98      5209
+
+                      precision    recall  f1-score   support
+
+other_infrastructure       0.96      1.00      0.98      4976
+
+         avg / total       0.92      0.95      0.93      5209
+
+                 precision    recall  f1-score   support
+
+weather_related       0.75      0.92      0.83      3783
+
+    avg / total       0.67      0.72      0.67      5209
+
+             precision    recall  f1-score   support
+
+     floods       0.92      0.99      0.95      4798
+
+avg / total       0.86      0.91      0.88      5209
+
+             precision    recall  f1-score   support
+
+      storm       0.91      0.99      0.95      4727
+
+avg / total       0.86      0.90      0.87      5209
+
+             precision    recall  f1-score   support
+
+       fire       0.99      1.00      0.99      5152
+
+avg / total       0.98      0.99      0.98      5209
+
+             precision    recall  f1-score   support
+
+ earthquake       0.92      0.99      0.95      4743
+
+avg / total       0.89      0.91      0.89      5209
+
+             precision    recall  f1-score   support
+
+       cold       0.98      1.00      0.99      5113
+
+avg / total       0.96      0.98      0.97      5209
+
+               precision    recall  f1-score   support
+
+other_weather       0.95      1.00      0.97      4929
+
+  avg / total       0.90      0.94      0.92      5209
+
+               precision    recall  f1-score   support
+
+direct_report       0.81      0.97      0.88      4179
+
+  avg / total       0.73      0.79      0.74      5209
+
+..............................................Finished printing precision recall &amp; f1-score for target columns.
+</pre>
+</div>
+</div>
+
+<div class="output_area">
+
+    <div class="prompt"></div>
+
+
+<div class="output_subarea output_stream output_stderr output_text">
+<pre>/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1428: UserWarning: labels size, 3, does not match size of target_names, 1
+  .format(len(labels), len(target_names))
+/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1428: UserWarning: labels size, 2, does not match size of target_names, 1
+  .format(len(labels), len(target_names))
+/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
+  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
+</pre>
 </div>
 </div>
 
@@ -14304,7 +14491,7 @@ Time taken: 0.0017247200012207031
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[26]:</div>
+<div class="prompt input_prompt">In&nbsp;[12]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#from sklearn.linear_model import RidgeClassifierCV</span>
@@ -14318,23 +14505,21 @@ Time taken: 0.0017247200012207031
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[27]:</div>
+<div class="prompt input_prompt">In&nbsp;[13]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">pipeline2</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
     <span class="p">(</span><span class="s1">&#39;vect&#39;</span><span class="p">,</span> <span class="n">CountVectorizer</span><span class="p">(</span><span class="n">tokenizer</span><span class="o">=</span><span class="n">tokenize</span><span class="p">)),</span>
+    <span class="c1">#(&#39;clf&#39;, RidgeClassifierCV())</span>
     <span class="p">(</span><span class="s1">&#39;clf&#39;</span><span class="p">,</span>  <span class="n">MultiOutputClassifier</span><span class="p">(</span><span class="n">RandomForestClassifier</span><span class="p">()))</span>
 <span class="p">])</span>
 <span class="n">tuned_parameters</span> <span class="o">=</span> <span class="p">{</span>
-    <span class="s1">&#39;vect__ngram_range&#39;</span><span class="p">:</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">)),</span>
-    <span class="c1">#&#39;vect__max_df&#39;: [0.5],</span>
-    <span class="c1">#&#39;vect__min_df&#39; : [1],</span>
-    <span class="s1">&#39;clf__estimator__n_estimators&#39;</span> <span class="p">:</span> <span class="p">[</span><span class="mi">50</span><span class="p">]</span>
+    <span class="s1">&#39;vect__ngram_range&#39;</span><span class="p">:</span> <span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">1</span><span class="p">),(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">))</span>
 <span class="p">}</span>
 
 
-<span class="n">cv2</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline2</span><span class="p">,</span> <span class="n">param_grid</span> <span class="o">=</span> <span class="n">tuned_parameters</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
-<span class="n">cv2</span>
+<span class="n">modelcv2</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipeline2</span><span class="p">,</span> <span class="n">param_grid</span> <span class="o">=</span> <span class="n">tuned_parameters</span><span class="p">,</span> <span class="n">verbose</span> <span class="o">=</span> <span class="mi">1</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">modelcv2</span>
 </pre></div>
 
     </div>
@@ -14347,7 +14532,7 @@ Time taken: 0.0017247200012207031
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[27]:</div>
+    <div class="prompt output_prompt">Out[13]:</div>
 
 
 
@@ -14363,7 +14548,7 @@ Time taken: 0.0017247200012207031
             warm_start=False),
            n_jobs=1))]),
        fit_params=None, iid=True, n_jobs=-1,
-       param_grid={&#39;vect__ngram_range&#39;: ((1, 1), (1, 2)), &#39;clf__estimator__n_estimators&#39;: [50]},
+       param_grid={&#39;vect__ngram_range&#39;: ((1, 1), (1, 2))},
        pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=&#39;warn&#39;,
        scoring=None, verbose=1)</pre>
 </div>
@@ -14376,7 +14561,7 @@ Time taken: 0.0017247200012207031
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[28]:</div>
+<div class="prompt input_prompt">In&nbsp;[18]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Split data into train and test sets</span>
@@ -14390,11 +14575,11 @@ Time taken: 0.0017247200012207031
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[29]:</div>
+<div class="prompt input_prompt">In&nbsp;[19]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Train</span>
-<span class="n">cv2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#Train using MultiOutputClassifier(RandomForestClassifier()) without TfID</span>
+<span class="n">modelcv2</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span><span class="n">y_train</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14422,14 +14607,14 @@ Time taken: 0.0017247200012207031
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>[Parallel(n_jobs=-1)]: Done   6 out of   6 | elapsed: 42.9min finished
+<pre>[Parallel(n_jobs=-1)]: Done   6 out of   6 | elapsed: 17.6min finished
 </pre>
 </div>
 </div>
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[29]:</div>
+    <div class="prompt output_prompt">Out[19]:</div>
 
 
 
@@ -14445,7 +14630,7 @@ Time taken: 0.0017247200012207031
             warm_start=False),
            n_jobs=1))]),
        fit_params=None, iid=True, n_jobs=-1,
-       param_grid={&#39;vect__ngram_range&#39;: ((1, 1), (1, 2)), &#39;clf__estimator__n_estimators&#39;: [50]},
+       param_grid={&#39;vect__ngram_range&#39;: ((1, 1), (1, 2))},
        pre_dispatch=&#39;2*n_jobs&#39;, refit=True, return_train_score=&#39;warn&#39;,
        scoring=None, verbose=1)</pre>
 </div>
@@ -14458,12 +14643,19 @@ Time taken: 0.0017247200012207031
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[30]:</div>
+<div class="prompt input_prompt">In&nbsp;[43]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#predict on test data</span>
-<span class="n">y_pred2</span> <span class="o">=</span> <span class="n">cv2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
-<span class="n">y_pred2</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;predicting using Grid Search.........&#39;</span><span class="p">)</span>
+<span class="n">start</span> <span class="o">=</span> <span class="n">time</span><span class="p">()</span>
+
+<span class="c1">#Predict</span>
+<span class="n">y_pred2</span> <span class="o">=</span> <span class="n">modelcv2</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+
+
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Time taken: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">time</span><span class="p">()</span><span class="o">-</span><span class="n">start</span><span class="p">))</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;...........................................finished predicting&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14476,21 +14668,15 @@ Time taken: 0.0017247200012207031
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[30]:</div>
+    <div class="prompt"></div>
 
 
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[1, 0, 0, ..., 0, 0, 0],
-       [1, 0, 0, ..., 0, 0, 0],
-       [1, 0, 0, ..., 0, 0, 1],
-       ..., 
-       [1, 0, 0, ..., 0, 0, 0],
-       [1, 0, 0, ..., 0, 0, 0],
-       [1, 0, 0, ..., 0, 0, 0]])</pre>
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>predicting using Grid Search.........
+Time taken: 34.60213589668274
+...........................................finished predicting
+</pre>
 </div>
-
 </div>
 
 </div>
@@ -14499,14 +14685,14 @@ Time taken: 0.0017247200012207031
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
+<div class="prompt input_prompt">In&nbsp;[44]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;best_estimator: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">best_estimator_</span><span class="p">),</span>
-       <span class="s1">&#39;best params:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">best_params_</span><span class="p">),</span>
-       <span class="s1">&#39;best score: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">best_score_</span><span class="p">),</span>
-       <span class="s1">&#39;Cross Validation results: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">),</span>
-       <span class="s1">&#39;Scorer : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">cv2</span><span class="o">.</span><span class="n">scorer_</span><span class="p">),</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span> <span class="p">(</span><span class="s1">&#39;best_estimator: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">modelcv2</span><span class="o">.</span><span class="n">best_estimator_</span><span class="p">),</span>
+       <span class="s1">&#39;best params:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">modelcv2</span><span class="o">.</span><span class="n">best_params_</span><span class="p">),</span>
+       <span class="s1">&#39;best score: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">modelcv2</span><span class="o">.</span><span class="n">best_score_</span><span class="p">),</span>
+       <span class="s1">&#39;Cross Validation results: </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">modelcv2</span><span class="o">.</span><span class="n">cv_results_</span><span class="p">),</span>
+       <span class="s1">&#39;Scorer : </span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">modelcv2</span><span class="o">.</span><span class="n">scorer_</span><span class="p">),</span>
        <span class="n">sep</span><span class="o">=</span><span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span> <span class="p">)</span>
 </pre></div>
 
@@ -14532,16 +14718,13 @@ Time taken: 0.0017247200012207031
         strip...oob_score=False, random_state=None, verbose=0,
             warm_start=False),
            n_jobs=1))])
-best params:{&#39;clf__estimator__n_estimators&#39;: 50, &#39;vect__ngram_range&#39;: (1, 2)}
-best score: 0.18324245449658244
-Cross Validation results: {&#39;mean_fit_time&#39;: array([ 203.86183254,  460.9219652 ]), &#39;std_fit_time&#39;: array([  2.53567585,  15.46653042]), &#39;mean_score_time&#39;: array([ 29.9805812 ,  34.93530854]), &#39;std_score_time&#39;: array([ 0.36090008,  1.10350007]), &#39;param_clf__estimator__n_estimators&#39;: masked_array(data = [50 50],
+best params:{&#39;vect__ngram_range&#39;: (1, 2)}
+best score: 0.1794025036479533
+Cross Validation results: {&#39;mean_fit_time&#39;: array([  78.6131297 ,  111.36622723]), &#39;std_fit_time&#39;: array([ 0.1120005,  2.268008 ]), &#39;mean_score_time&#39;: array([ 26.37832721,  27.19716477]), &#39;std_score_time&#39;: array([ 0.34394588,  0.50386717]), &#39;param_vect__ngram_range&#39;: masked_array(data = [(1, 1) (1, 2)],
              mask = [False False],
        fill_value = ?)
-, &#39;param_vect__ngram_range&#39;: masked_array(data = [(1, 1) (1, 2)],
-             mask = [False False],
-       fill_value = ?)
-, &#39;params&#39;: [{&#39;clf__estimator__n_estimators&#39;: 50, &#39;vect__ngram_range&#39;: (1, 1)}, {&#39;clf__estimator__n_estimators&#39;: 50, &#39;vect__ngram_range&#39;: (1, 2)}], &#39;split0_test_score&#39;: array([ 0.14789219,  0.17922138]), &#39;split1_test_score&#39;: array([ 0.16221198,  0.1921659 ]), &#39;split2_test_score&#39;: array([ 0.15414747,  0.17834101]), &#39;mean_test_score&#39;: array([ 0.15475002,  0.18324245]), &#39;std_test_score&#39;: array([ 0.00586165,  0.00631969]), &#39;rank_test_score&#39;: array([2, 1], dtype=int32), &#39;split0_train_score&#39;: array([ 0.965553  ,  0.95806452]), &#39;split1_train_score&#39;: array([ 0.96555696,  0.95288561]), &#39;split2_train_score&#39;: array([ 0.96428983,  0.95346158]), &#39;mean_train_score&#39;: array([ 0.96513326,  0.9548039 ]), &#39;std_train_score&#39;: array([ 0.0005964 ,  0.00231756])}
-Scorer : &lt;function _passthrough_scorer at 0x7f3d4c2a9598&gt;
+, &#39;params&#39;: [{&#39;vect__ngram_range&#39;: (1, 1)}, {&#39;vect__ngram_range&#39;: (1, 2)}], &#39;split0_test_score&#39;: array([ 0.14674038,  0.17991246]), &#39;split1_test_score&#39;: array([ 0.1483871,  0.1781106]), &#39;split2_test_score&#39;: array([ 0.15230415,  0.18018433]), &#39;mean_test_score&#39;: array([ 0.14914369,  0.1794025 ]), &#39;std_test_score&#39;: array([ 0.00233359,  0.00092018]), &#39;rank_test_score&#39;: array([2, 1], dtype=int32), &#39;split0_train_score&#39;: array([ 0.70864055,  0.66647465]), &#39;split1_train_score&#39;: array([ 0.71132358,  0.66651307]), &#39;split2_train_score&#39;: array([ 0.70613985,  0.66501555]), &#39;mean_train_score&#39;: array([ 0.70870133,  0.66600109]), &#39;std_train_score&#39;: array([ 0.00211669,  0.00069706])}
+Scorer : &lt;function _passthrough_scorer at 0x7f6425552598&gt;
 </pre>
 </div>
 </div>
@@ -14552,7 +14735,7 @@ Scorer : &lt;function _passthrough_scorer at 0x7f3d4c2a9598&gt;
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[52]:</div>
+<div class="prompt input_prompt">In&nbsp;[45]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="n">display_classification_report</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span><span class="n">y_pred2</span><span class="p">,</span><span class="n">df</span><span class="p">)</span>
@@ -14575,219 +14758,219 @@ Scorer : &lt;function _passthrough_scorer at 0x7f3d4c2a9598&gt;
 <pre>Printing precision score, recall score &amp; f1-score for target columns...............
              precision    recall  f1-score   support
 
-    related       0.83      1.00      0.91        29
+    related       0.79      0.53      0.63      1212
 
-avg / total       0.86      0.83      0.78        36
-
-             precision    recall  f1-score   support
-
-    request       0.83      1.00      0.91        29
-
-avg / total       0.86      0.83      0.78        36
+avg / total       0.85      0.85      0.84      5209
 
              precision    recall  f1-score   support
 
-      offer       0.88      1.00      0.94        30
+    request       0.90      0.99      0.94      4329
 
-avg / total       0.90      0.89      0.86        36
+avg / total       0.90      0.90      0.89      5209
 
              precision    recall  f1-score   support
 
-aid_related       1.00      1.00      1.00        35
+      offer       1.00      1.00      1.00      5183
 
-avg / total       1.00      1.00      1.00        36
+avg / total       1.00      1.00      1.00      5209
+
+             precision    recall  f1-score   support
+
+aid_related       0.74      0.95      0.83      3061
+
+avg / total       0.80      0.77      0.76      5209
 
               precision    recall  f1-score   support
 
-medical_help       0.80      1.00      0.89        28
+medical_help       0.95      1.00      0.97      4794
 
- avg / total       0.84      0.81      0.74        36
+ avg / total       0.95      0.95      0.94      5209
 
                   precision    recall  f1-score   support
 
-medical_products       1.00      1.00      1.00        35
+medical_products       0.97      1.00      0.98      4953
 
-     avg / total       1.00      1.00      1.00        36
+     avg / total       0.97      0.97      0.96      5209
 
                    precision    recall  f1-score   support
 
-search_and_rescue       1.00      1.00      1.00        35
+search_and_rescue       0.98      1.00      0.99      5064
 
-      avg / total       1.00      1.00      1.00        36
-
-             precision    recall  f1-score   support
-
-   security       0.89      1.00      0.94        31
-
-avg / total       0.90      0.89      0.86        36
+      avg / total       0.98      0.98      0.98      5209
 
              precision    recall  f1-score   support
 
-   military       1.00      0.97      0.99        36
+   security       0.99      1.00      0.99      5115
 
-avg / total       1.00      0.97      0.99        36
-
-             precision    recall  f1-score   support
-
-child_alone       1.00      0.97      0.99        36
-
-avg / total       1.00      0.97      0.99        36
+avg / total       0.99      0.99      0.98      5209
 
              precision    recall  f1-score   support
 
-      water       0.91      1.00      0.96        32
+   military       0.98      1.00      0.99      5031
 
-avg / total       0.92      0.92      0.89        36
-
-             precision    recall  f1-score   support
-
-       food       0.86      1.00      0.92        30
-
-avg / total       0.88      0.86      0.82        36
+avg / total       0.98      0.98      0.97      5209
 
              precision    recall  f1-score   support
 
-    shelter       1.00      1.00      1.00        35
+child_alone       1.00      1.00      1.00      5209
 
-avg / total       1.00      1.00      1.00        36
-
-             precision    recall  f1-score   support
-
-   clothing       0.91      1.00      0.95        31
-
-avg / total       0.92      0.92      0.90        36
+avg / total       1.00      1.00      1.00      5209
 
              precision    recall  f1-score   support
 
-      money       1.00      1.00      1.00        35
+      water       0.96      1.00      0.98      4911
 
-avg / total       1.00      1.00      1.00        36
+avg / total       0.96      0.96      0.96      5209
+
+             precision    recall  f1-score   support
+
+       food       0.93      1.00      0.96      4640
+
+avg / total       0.94      0.93      0.92      5209
+
+             precision    recall  f1-score   support
+
+    shelter       0.95      1.00      0.97      4775
+
+avg / total       0.95      0.95      0.94      5209
+
+             precision    recall  f1-score   support
+
+   clothing       0.99      1.00      1.00      5144
+
+avg / total       0.99      0.99      0.99      5209
+
+             precision    recall  f1-score   support
+
+      money       0.98      1.00      0.99      5059
+
+avg / total       0.98      0.98      0.97      5209
 
                 precision    recall  f1-score   support
 
-missing_people       0.94      0.94      0.94        33
+missing_people       0.99      1.00      1.00      5147
 
-   avg / total       0.89      0.89      0.89        36
-
-             precision    recall  f1-score   support
-
-   refugees       0.74      1.00      0.85        26
-
-avg / total       0.81      0.75      0.67        36
+   avg / total       0.99      0.99      0.99      5209
 
              precision    recall  f1-score   support
 
-      death       1.00      1.00      1.00        35
+   refugees       0.98      1.00      0.99      5045
 
-avg / total       1.00      1.00      1.00        36
+avg / total       0.98      0.98      0.98      5209
 
              precision    recall  f1-score   support
 
-  other_aid       1.00      1.00      1.00        35
+      death       0.97      1.00      0.98      4959
 
-avg / total       1.00      1.00      1.00        36
+avg / total       0.97      0.97      0.96      5209
+
+             precision    recall  f1-score   support
+
+  other_aid       0.91      1.00      0.95      4527
+
+avg / total       0.92      0.91      0.90      5209
 
                         precision    recall  f1-score   support
 
-infrastructure_related       1.00      0.97      0.99        36
+infrastructure_related       0.96      1.00      0.98      4862
 
-           avg / total       1.00      0.97      0.99        36
-
-             precision    recall  f1-score   support
-
-  transport       0.86      1.00      0.92        30
-
-avg / total       0.88      0.86      0.82        36
+           avg / total       0.96      0.96      0.95      5209
 
              precision    recall  f1-score   support
 
-  buildings       0.83      1.00      0.91        29
+  transport       0.97      1.00      0.98      4962
 
-avg / total       0.86      0.83      0.78        36
-
-             precision    recall  f1-score   support
-
-electricity       0.77      1.00      0.87        27
-
-avg / total       0.83      0.78      0.70        36
+avg / total       0.97      0.97      0.96      5209
 
              precision    recall  f1-score   support
 
-      tools       1.00      0.94      0.97        35
+  buildings       0.97      1.00      0.98      4936
 
-avg / total       0.97      0.92      0.94        36
-
-             precision    recall  f1-score   support
-
-  hospitals       0.89      1.00      0.94        31
-
-avg / total       0.90      0.89      0.86        36
+avg / total       0.97      0.97      0.96      5209
 
              precision    recall  f1-score   support
 
-      shops       0.77      1.00      0.87        27
+electricity       0.99      1.00      0.99      5111
 
-avg / total       0.83      0.78      0.70        36
+avg / total       0.99      0.99      0.98      5209
 
              precision    recall  f1-score   support
 
-aid_centers       0.79      1.00      0.89        27
+      tools       1.00      1.00      1.00      5176
 
-avg / total       0.85      0.81      0.75        36
+avg / total       0.99      1.00      0.99      5209
+
+             precision    recall  f1-score   support
+
+  hospitals       0.99      1.00      1.00      5151
+
+avg / total       0.99      0.99      0.99      5209
+
+             precision    recall  f1-score   support
+
+      shops       1.00      1.00      1.00      5182
+
+avg / total       1.00      1.00      1.00      5209
+
+             precision    recall  f1-score   support
+
+aid_centers       0.99      1.00      1.00      5148
+
+avg / total       0.99      0.99      0.99      5209
 
                       precision    recall  f1-score   support
 
-other_infrastructure       1.00      0.97      0.99        36
+other_infrastructure       0.97      1.00      0.99      4975
 
-         avg / total       1.00      0.97      0.99        36
+         avg / total       0.97      0.97      0.97      5209
 
                  precision    recall  f1-score   support
 
-weather_related       0.86      1.00      0.92        30
+weather_related       0.83      0.98      0.90      3740
 
-    avg / total       0.88      0.86      0.82        36
-
-             precision    recall  f1-score   support
-
-     floods       0.83      1.00      0.91        29
-
-avg / total       0.86      0.83      0.78        36
+    avg / total       0.86      0.84      0.83      5209
 
              precision    recall  f1-score   support
 
-      storm       1.00      0.97      0.99        36
+     floods       0.94      1.00      0.97      4759
 
-avg / total       1.00      0.97      0.99        36
-
-             precision    recall  f1-score   support
-
-       fire       1.00      0.97      0.99        36
-
-avg / total       1.00      0.97      0.99        36
+avg / total       0.94      0.94      0.93      5209
 
              precision    recall  f1-score   support
 
- earthquake       1.00      1.00      1.00        35
+      storm       0.94      1.00      0.97      4688
 
-avg / total       1.00      1.00      1.00        36
+avg / total       0.94      0.94      0.92      5209
 
              precision    recall  f1-score   support
 
-       cold       1.00      0.97      0.99        36
+       fire       0.99      1.00      1.00      5166
 
-avg / total       1.00      0.97      0.99        36
+avg / total       0.99      0.99      0.99      5209
+
+             precision    recall  f1-score   support
+
+ earthquake       0.95      1.00      0.97      4735
+
+avg / total       0.95      0.95      0.94      5209
+
+             precision    recall  f1-score   support
+
+       cold       0.99      1.00      0.99      5109
+
+avg / total       0.99      0.99      0.98      5209
 
                precision    recall  f1-score   support
 
-other_weather       1.00      1.00      1.00        35
+other_weather       0.96      1.00      0.98      4914
 
-  avg / total       1.00      1.00      1.00        36
+  avg / total       0.96      0.96      0.96      5209
 
                precision    recall  f1-score   support
 
-direct_report       1.00      1.00      1.00        35
+direct_report       0.88      0.99      0.93      4213
 
-  avg / total       1.00      1.00      1.00        36
+  avg / total       0.89      0.88      0.87      5209
 
 ..............................................Finished printing precision recall &amp; f1-score for target columns.
 </pre>
@@ -14800,14 +14983,10 @@ direct_report       1.00      1.00      1.00        35
 
 
 <div class="output_subarea output_stream output_stderr output_text">
-<pre>/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1428: UserWarning: labels size, 2, does not match size of target_names, 1
+<pre>/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1428: UserWarning: labels size, 3, does not match size of target_names, 1
   .format(len(labels), len(target_names))
-/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1137: UndefinedMetricWarning: Recall and F-score are ill-defined and being set to 0.0 in labels with no true samples.
-  &#39;recall&#39;, &#39;true&#39;, average, warn_for)
-/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1428: UserWarning: labels size, 3, does not match size of target_names, 1
+/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1428: UserWarning: labels size, 2, does not match size of target_names, 1
   .format(len(labels), len(target_names))
-/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
-  &#39;precision&#39;, &#39;predicted&#39;, average, warn_for)
 </pre>
 </div>
 </div>
@@ -14825,10 +15004,16 @@ direct_report       1.00      1.00      1.00        35
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[71]:</div>
+<div class="prompt input_prompt">In&nbsp;[46]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">pickle</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="k">def</span> <span class="nf">save_model</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">model_filepath</span><span class="p">):</span>
+    <span class="c1"># open the file for writing</span>
+    <span class="n">fileObject</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">model_filepath</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span>
+    <span class="c1"># this writes the object a to the</span>
+    <span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">fileObject</span><span class="p">)</span>
+    <span class="c1"># # here we close the fileObject</span>
+    <span class="n">fileObject</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
 </pre></div>
 
     </div>
@@ -14841,9 +15026,14 @@ direct_report       1.00      1.00      1.00        35
 <div class="prompt input_prompt">In&nbsp;[72]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">file_Name</span> <span class="o">=</span> <span class="s2">&quot;GridSearchModel.pkl&quot;</span>
-<span class="c1"># open the file for writing</span>
-<span class="n">fileObject</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_Name</span><span class="p">,</span><span class="s1">&#39;wb&#39;</span><span class="p">)</span> 
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1">#trial code</span>
+<span class="c1"># file_Name = &quot;GridSearchModel.pkl&quot;</span>
+<span class="c1"># # open the file for writing</span>
+<span class="c1"># fileObject = open(file_Name,&#39;wb&#39;)</span>
+<span class="c1"># # this writes the object a to the</span>
+<span class="c1"># pickle.dump(cv2,fileObject)</span>
+<span class="c1"># # # here we close the fileObject</span>
+<span class="c1"># fileObject.close()</span>
 </pre></div>
 
     </div>
@@ -14853,13 +15043,10 @@ direct_report       1.00      1.00      1.00        35
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[73]:</div>
+<div class="prompt input_prompt">In&nbsp;[39]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># this writes the object a to the</span>
-<span class="n">pickle</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">cv2</span><span class="p">,</span><span class="n">fileObject</span><span class="p">)</span>
-<span class="c1"># # here we close the fileObject</span>
-<span class="n">fileObject</span><span class="o">.</span><span class="n">close</span><span class="p">()</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">save_model</span><span class="p">(</span><span class="n">model1</span><span class="p">,</span><span class="s1">&#39;model1_pickle_file.pkl&#39;</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14869,13 +15056,13 @@ direct_report       1.00      1.00      1.00        35
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[77]:</div>
+<div class="prompt input_prompt">In&nbsp;[48]:</div>
 <div class="inner_cell">
     <div class="input_area">
 <div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># we open the file for reading</span>
-<span class="n">fileObject</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="n">file_Name</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
+<span class="n">fileObject</span> <span class="o">=</span> <span class="nb">open</span><span class="p">(</span><span class="s1">&#39;model1_pickle_file.pkl&#39;</span><span class="p">,</span><span class="s1">&#39;rb&#39;</span><span class="p">)</span>
 <span class="c1"># load the object from the file into var b</span>
-<span class="n">cv2model</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fileObject</span><span class="p">)</span>
+<span class="n">model1</span> <span class="o">=</span> <span class="n">pickle</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="n">fileObject</span><span class="p">)</span>
 </pre></div>
 
     </div>
@@ -14885,10 +15072,10 @@ direct_report       1.00      1.00      1.00        35
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[80]:</div>
+<div class="prompt input_prompt">In&nbsp;[49]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cv2model</span><span class="o">.</span><span class="n">best_score_</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="n">model1</span><span class="o">.</span><span class="n">best_score_</span>
 </pre></div>
 
     </div>
@@ -14901,13 +15088,13 @@ direct_report       1.00      1.00      1.00        35
 
 <div class="output_area">
 
-    <div class="prompt output_prompt">Out[80]:</div>
+    <div class="prompt output_prompt">Out[49]:</div>
 
 
 
 
 <div class="output_text output_subarea output_execute_result">
-<pre>0.18324245449658244</pre>
+<pre>0.14078625258004129</pre>
 </div>
 
 </div>
@@ -14923,19 +15110,6 @@ direct_report       1.00      1.00      1.00        35
 
 </div>
 </div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[&nbsp;]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span> 
-</pre></div>
-
-    </div>
-</div>
-</div>
-
 </div>
     </div>
   </div>

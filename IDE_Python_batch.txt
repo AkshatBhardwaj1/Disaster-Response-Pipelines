@@ -1,0 +1,5 @@
+
+python process_data.py disaster_messages.csv disaster_categories.csv DisasterResponse.db
+
+python train_classifier.py ../data/DisasterResponse.db classifier.pkl
+
