@@ -17,4 +17,4 @@
 
 The web app works and correctly classifies messages.
 
-![alt text](http://url/to/img.png)
+![alt text](https://github.com/AkshatBhardwaj1/Disaster-Response-Pipelines/blob/master/IDE%20Workspace/Capture.PNG)
