@@ -1,0 +1,272 @@
+root@afef43828845:/home/workspace/models# python train_classifier.py ../data/DisasterResponse.db classifier.pkl
+[nltk_data] Downloading package punkt to /root/nltk_data...
+[nltk_data]   Package punkt is already up-to-date!
+[nltk_data] Downloading package wordnet to /root/nltk_data...
+[nltk_data]   Package wordnet is already up-to-date!
+[nltk_data] Downloading package stopwords to /root/nltk_data...
+[nltk_data]   Package stopwords is already up-to-date!
+[nltk_data] Downloading package averaged_perceptron_tagger to
+[nltk_data]     /root/nltk_data...
+[nltk_data]   Package averaged_perceptron_tagger is already up-to-
+[nltk_data]       date!
+Loading data...
+    DATABASE: ../data/DisasterResponse.db
+Index(['related', 'request', 'offer', 'aid_related', 'medical_help',
+       'medical_products', 'search_and_rescue', 'security', 'military',
+       'child_alone', 'water', 'food', 'shelter', 'clothing', 'money',
+       'missing_people', 'refugees', 'death', 'other_aid',
+       'infrastructure_related', 'transport', 'buildings', 'electricity',
+       'tools', 'hospitals', 'shops', 'aid_centers', 'other_infrastructure',
+       'weather_related', 'floods', 'storm', 'fire', 'earthquake', 'cold',
+       'other_weather', 'direct_report'],
+      dtype='object')
+Building model...
+Training model...
+Fitting 3 folds for each of 2 candidates, totalling 6 fits
+[Parallel(n_jobs=-1)]: Done   6 out of   6 | elapsed: 35.2min finished
+Evaluating model...
+Predicting.........
+Evaluating ...........
+Printing precision score, recall score & f1-score for target columns...............
+/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1428: UserWarning: labels size, 3, does not match size of target_names, 1
+  .format(len(labels), len(target_names))
+/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1428: UserWarning: labels size, 2, does not match size of target_names, 1
+  .format(len(labels), len(target_names))
+/opt/conda/lib/python3.6/site-packages/sklearn/metrics/classification.py:1135: UndefinedMetricWarning: Precision and F-score are ill-defined and being set to 0.0 in labels with no predicted samples.
+  'precision', 'predicted', average, warn_for)
+             precision    recall  f1-score   support
+
+    related       0.33      0.19      0.24      1227
+
+avg / total       0.66      0.71      0.68      5209
+
+             precision    recall  f1-score   support
+
+    request       0.84      0.97      0.90      4311
+
+avg / total       0.77      0.82      0.77      5209
+
+             precision    recall  f1-score   support
+
+      offer       0.99      1.00      1.00      5177
+
+avg / total       0.99      0.99      0.99      5209
+
+             precision    recall  f1-score   support
+
+aid_related       0.60      0.77      0.67      3054
+
+avg / total       0.53      0.56      0.53      5209
+
+              precision    recall  f1-score   support
+
+medical_help       0.91      1.00      0.95      4762
+
+ avg / total       0.84      0.91      0.87      5209
+
+                  precision    recall  f1-score   support
+
+medical_products       0.95      1.00      0.97      4947
+
+     avg / total       0.90      0.95      0.92      5209
+
+                   precision    recall  f1-score   support
+
+search_and_rescue       0.97      1.00      0.99      5075
+
+      avg / total       0.95      0.97      0.96      5209
+
+             precision    recall  f1-score   support
+
+   security       0.98      1.00      0.99      5119
+
+avg / total       0.97      0.98      0.97      5209
+
+             precision    recall  f1-score   support
+
+   military       0.97      1.00      0.98      5046
+
+avg / total       0.94      0.97      0.95      5209
+
+             precision    recall  f1-score   support
+
+child_alone       1.00      1.00      1.00      5209
+
+avg / total       1.00      1.00      1.00      5209
+
+             precision    recall  f1-score   support
+
+      water       0.94      1.00      0.97      4895
+
+avg / total       0.89      0.94      0.91      5209
+
+             precision    recall  f1-score   support
+
+       food       0.90      1.00      0.94      4669
+
+avg / total       0.83      0.89      0.85      5209
+
+             precision    recall  f1-score   support
+
+    shelter       0.92      1.00      0.96      4781
+
+avg / total       0.86      0.92      0.88      5209
+
+             precision    recall  f1-score   support
+
+   clothing       0.98      1.00      0.99      5126
+
+avg / total       0.97      0.98      0.98      5209
+
+             precision    recall  f1-score   support
+
+      money       0.98      1.00      0.99      5096
+
+avg / total       0.97      0.98      0.97      5209
+
+                precision    recall  f1-score   support
+
+missing_people       0.99      1.00      0.99      5147
+
+   avg / total       0.98      0.99      0.98      5209
+
+             precision    recall  f1-score   support
+
+   refugees       0.97      1.00      0.98      5040
+
+avg / total       0.94      0.97      0.95      5209
+
+             precision    recall  f1-score   support
+
+      death       0.95      1.00      0.98      4961
+
+avg / total       0.91      0.95      0.93      5209
+
+             precision    recall  f1-score   support
+
+  other_aid       0.87      0.99      0.93      4517
+
+avg / total       0.78      0.86      0.81      5209
+
+                        precision    recall  f1-score   support
+
+infrastructure_related       0.93      1.00      0.96      4854
+
+           avg / total       0.88      0.93      0.90      5209
+
+             precision    recall  f1-score   support
+
+  transport       0.95      1.00      0.98      4964
+
+avg / total       0.92      0.95      0.93      5209
+
+             precision    recall  f1-score   support
+
+  buildings       0.95      1.00      0.97      4944
+
+avg / total       0.91      0.95      0.92      5209
+
+             precision    recall  f1-score   support
+
+electricity       0.98      1.00      0.99      5111
+
+avg / total       0.96      0.98      0.97      5209
+
+             precision    recall  f1-score   support
+
+      tools       0.99      1.00      1.00      5177
+
+avg / total       0.99      0.99      0.99      5209
+
+             precision    recall  f1-score   support
+
+  hospitals       0.99      1.00      0.99      5146
+
+avg / total       0.98      0.99      0.98      5209
+
+             precision    recall  f1-score   support
+
+      shops       1.00      1.00      1.00      5187
+
+avg / total       0.99      1.00      0.99      5209
+
+             precision    recall  f1-score   support
+
+aid_centers       0.99      1.00      0.99      5144
+
+avg / total       0.98      0.99      0.98      5209
+
+                      precision    recall  f1-score   support
+
+other_infrastructure       0.95      1.00      0.98      4968
+
+         avg / total       0.93      0.95      0.93      5209
+
+                 precision    recall  f1-score   support
+
+weather_related       0.74      0.93      0.83      3767
+
+    avg / total       0.67      0.72      0.67      5209
+
+             precision    recall  f1-score   support
+
+     floods       0.92      1.00      0.96      4791
+
+avg / total       0.86      0.92      0.88      5209
+
+             precision    recall  f1-score   support
+
+      storm       0.90      1.00      0.95      4704
+
+avg / total       0.85      0.90      0.86      5209
+
+             precision    recall  f1-score   support
+
+       fire       0.99      1.00      0.99      5152
+
+avg / total       0.98      0.99      0.98      5209
+
+             precision    recall  f1-score   support
+
+ earthquake       0.92      0.99      0.95      4723
+
+avg / total       0.89      0.91      0.88      5209
+
+             precision    recall  f1-score   support
+
+       cold       0.98      1.00      0.99      5100
+
+avg / total       0.96      0.98      0.97      5209
+
+               precision    recall  f1-score   support
+
+other_weather       0.95      1.00      0.98      4965
+
+  avg / total       0.92      0.95      0.93      5209
+
+               precision    recall  f1-score   support
+
+direct_report       0.81      0.97      0.88      4170
+
+  avg / total       0.71      0.79      0.73      5209
+
+..............................................Finished printing precision recall & f1-score for target columns.
+best_estimator: Pipeline(memory=None,
+     steps=[('vect', CountVectorizer(analyzer='word', binary=False, decode_error='strict',
+        dtype=<class 'numpy.int64'>, encoding='utf-8', input='content',
+        lowercase=True, max_df=1.0, max_features=None, min_df=1,
+        ngram_range=(1, 2), preprocessor=None, stop_words=None,
+        strip...oob_score=False, random_state=None, verbose=0,
+            warm_start=False),
+           n_jobs=1))])
+best params:{'vect__ngram_range': (1, 2)}
+best score: 0.1455383286132578
+Cross Validation results: {'mean_fit_time': array([ 161.05312729,  279.23793626]), 'std_fit_time': array([ 1.19531636,  2.69506725]), 'mean_score_time': array([ 43.09414164,  44.66711251]), 'std_score_time': array([ 0.57882166,  0.91532994]), 'param_vect__ngram_range': masked_array(data = [(1, 1) (1, 2)],
+             mask = [False False],
+       fill_value = ?)
+, 'params': [{'vect__ngram_range': (1, 1)}, {'vect__ngram_range': (1, 2)}], 'split0_test_score': array([ 0.14701224,  0.14571634]), 'split1_test_score': array([ 0.14991359,  0.1484735 ]), 'split2_test_score': array([ 0.13954493,  0.14242512]), 'mean_test_score': array([ 0.14549033,  0.14553833]), 'std_test_score': array([ 0.00436756,  0.00247239]), 'rank_test_score': array([2, 1], dtype=int32), 'split0_train_score': array([ 0.6921803 ,  0.66978687]), 'split1_train_score': array([ 0.69313845,  0.66765066]), 'split2_train_score': array([ 0.69573043,  0.66909065]), 'mean_train_score': array([ 0.69368306,  0.66884272]), 'std_train_score': array([ 0.00149962,  0.00088955])}
+Scorer : <function _passthrough_scorer at 0x7fa4157962f0>
+Saving model...
+    MODEL: classifier.pkl
+Trained model saved!
+root@afef43828845:/home/workspace/models#

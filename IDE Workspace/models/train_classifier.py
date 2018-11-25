@@ -31,22 +31,36 @@ from sklearn.model_selection import GridSearchCV
 
 
 def load_data(database_filepath):
+    '''
+    Function to load data from sqllite database which was created by process_data.py script.
+    input - database_filepath as user input
+    output - 
+    X as text messages from the database.
+    Y - Categories of messages i.e. multilabel targets w.r.t messages in X
+    columns - this out has category names linked with message text in X.
+    '''
     # load data from database
-    conn = sqlite3.connect('ETLPipelineDatabase.db')
-    #conn = sqlite3.connect(database_filepath)
-    print ('Connection string-',conn)
-    engine = create_engine('sqlite:///ETLPipelineDatabase.db')
-    df = pd.read_sql('select * from ETL_Table', con=conn)
-#    print(df.head())
+    #print ('user provided database filepath : ', database_filepath)
+    conn = sqlite3.connect(database_filepath)
+    database_filepath = 'sqlite:///' + database_filepath
+    engine = create_engine(database_filepath)
+    #engine = create_engine('sqlite:///ETLPipelineDatabase.db')
+    df = pd.read_sql('select * from ETLPipeline_Table', con=conn)
+    #remove index column to cleanup.
     df.drop(['index'], axis=1, inplace=True)
     X = df['message'].values # text array
     Y = df.iloc[:,4:].values # text array
     columns = df.iloc[:,4:].columns
-    print (df.iloc[:,4:].columns)
+    #print (df.iloc[:,4:].columns)
     return X, Y, columns
 
 
 def tokenize(text):
+    '''
+    This function would apply tokenizer, stopwords, lemmatizer on a given message text.
+    In- message text as 'text'
+    Out - tokenized form of words in provided text
+    '''
     # Remove punctuation characters
     # Normalize text
     text = re.sub(r"[^a-zA-Z0-9]", " ", text.lower())
@@ -57,9 +71,13 @@ def tokenize(text):
     lemmed = [WordNetLemmatizer().lemmatize(w) for w in words]
     return lemmed
 
-
-
 def build_model():
+    '''
+    This function would create an object of GridSearchCV pipeline using tokenizer function using CountVectorizer,
+    TfIDTransformer and MultiOutputClassifier(RandomForestClassifier()) as classifier.
+    In- None
+    Out- GridSearchCV object of type GridSearchCV
+    '''
     pipeline1 = Pipeline([
         ('vect', CountVectorizer(tokenizer=tokenize)),
         ('tfidf', TfidfTransformer()),
@@ -67,34 +85,18 @@ def build_model():
     ])
     parameters = {
         'vect__ngram_range': ((1,1),(1, 2)),
-        'vect__max_df': [1.0],
-        'vect__min_df' : [1],
-        'tfidf__norm' : ['l2'],
-        'tfidf__use_idf' : ['True'],
+        #'vect__max_df': [1.0],
+        #'vect__min_df' : [1],
+        #'tfidf__norm' : ['l2'],
+        #'tfidf__use_idf' : ['True'],
         #'clf__estimator__min_samples_split': [2],
-        'clf__estimator__n_estimators': [50],
+        #'clf__estimator__n_estimators': [100],
         #'clf__estimator__max_features': ['auto'],
         #'clf__estimator__criterion': ['gini'],
         #'clf__estimator__class_weight' : [{0: 1, 1: 1}]
     }
     cv = GridSearchCV(pipeline1, param_grid = parameters, verbose = 1, n_jobs=-1)
     return cv
-
-
-def build_model1():
-    pipeline = Pipeline([
-    ('vect', CountVectorizer(tokenizer=tokenize)),
-    ('clf',  MultiOutputClassifier(RandomForestClassifier()))
-    ])
-    tuned_parameters = {
-        'vect__ngram_range': ((1,1),(1, 2)),
-        #'vect__max_df': [0.5],
-        #'vect__min_df' : [1],
-        'clf__estimator__n_estimators' : [50]
-    }
-    cv = GridSearchCV(pipeline, param_grid = tuned_parameters, verbose = 1, n_jobs=-1)
-    return cv
-
 
 
 def display_classification_report(y_test, y_pred, category_names):
@@ -112,24 +114,28 @@ def display_classification_report(y_test, y_pred, category_names):
     i = 0
     report = []
     for col in category_names:
-        report.append(classification_report(y_test[i], y_pred[i],target_names =[col]))
+        #print metrics per column as required.
+        report.append(classification_report(y_test[:,i], y_pred[:,i],target_names =[col]))
         i+=1
     print(*report,sep='\n',end='\n')
     print ('..............................................Finished printing precision recall & f1-score for target columns.')
 
     
 def evaluate_model(model, X_test, y_test, category_names):
+    '''
+    This function would predict and evaluate a given model. It would also print out best_estimator_,best_params_,best_score_ , cv_results_ and scorer_ for GridsearchCV model object.
+    In- 
+    model- Model object which was used to fit training set.
+    X_test- dataset which needs to be predicted on.
+    y_test - Multilabel target labels to verify evaluation metrics with.
+    category_names - Target category labelnames to verify evaluation metrics.
+    
+    Out- None.
+    This function would print the evaluation metrics on screen
+    '''
     print('Predicting.........')
     y_pred = model.predict(X_test)
-    #Evaluate
-    print('Evaluating ...........')
-    display_classification_report(y_test, y_pred, category_names)
-
-    
-def evaluate_model1(model, X_test, y_test, category_names):
-    #predict on test data
-    y_pred = model.predict(X_test)
-    #Evaluate
+    #Evaluate using display_classification_report function
     print('Evaluating ...........')
     display_classification_report(y_test, y_pred, category_names)
     print ('best_estimator: {}'.format(model.best_estimator_),
@@ -141,7 +147,13 @@ def evaluate_model1(model, X_test, y_test, category_names):
 
     
 def save_model(model, model_filepath):
-    #model_filepath = "GridSearchModel.pkl"
+    '''
+    This function is used to save a model object used in training to a user defined pickle file.
+    In - 
+    model - model object.
+    model_filepath - file path for pickle 3 file.
+    Out - None
+    '''
     # open the file for writing
     fileObject = open(model_filepath,'wb')
     # this writes the object a to the
@@ -158,14 +170,13 @@ def main():
         X_train, X_test, y_train, y_test = train_test_split(X, Y,test_size=0.2)
         
         print('Building model...')
-        #model = build_model() # fitting this model takes forever and never gives any results.
-        model = build_model1()
+        model = build_model()
         
         print('Training model...')
         model.fit(X_train, y_train)
         
         print('Evaluating model...')
-        evaluate_model1(model, X_test, y_test, category_names)
+        evaluate_model(model, X_test, y_test, category_names)
 
         print('Saving model...\n    MODEL: {}'.format(model_filepath))
         save_model(model, model_filepath)
